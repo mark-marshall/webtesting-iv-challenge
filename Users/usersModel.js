@@ -30,6 +30,7 @@ const remove = id => {
   const filtUsers = users.filter(user => user.id === id);
   if (filtUsers.length === 1) {
     const delUser = filtUsers[0];
+    users.splice(id, 1);
     return delUser;
   } else {
     return 'no user exists with this id';

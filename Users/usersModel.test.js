@@ -46,5 +46,12 @@ describe('usersModel', () => {
         const delRes = usersModel.remove(3);
         expect(delRes).toEqual(returnUser);
     });
+    it('removes the user if succesful', () => {
+        const listBefore = usersModel.get();
+        expect(listBefore).toHaveLength(3);        
+        usersModel.remove(0)
+        const listAfter = usersModel.get();
+        expect(listAfter).toHaveLength(2);  
+    });
   });
 });
