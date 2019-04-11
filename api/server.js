@@ -9,12 +9,17 @@ server.use(express.json());
 /*
 [GET] no params or body require, an array of users is returned
 */
-
 server.get('/', (req, res) => {
   const userList = users.get();
   res.status(200).json(userList);
 });
 
+/*
+[POST] a valid body is required with:
+"name": "string",
+"position": "string",
+** do not supply an id **
+*/
 server.post('/users', (req, res) => {
   const entry = req.body;
   const addedUserResponse = users.post(entry);
@@ -25,6 +30,9 @@ server.post('/users', (req, res) => {
   }
 });
 
+/*
+[DELETE] a valid id is required in the params
+*/
 server.delete('/users/:id', (req, res) => {
   const { id }  = req.params;
   const deletedUserResponse = users.remove(parseInt(id));
