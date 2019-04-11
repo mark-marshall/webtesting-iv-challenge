@@ -15,6 +15,11 @@ describe('server', () => {
           name: 'Gabe',
           position: 'instructor',
         },
+        {
+          id: 1,
+          name: 'Samar',
+          position: 'pm',
+        },
       ]);
       return request(server)
         .get('/')
@@ -54,12 +59,41 @@ describe('server', () => {
       const returnedUsr = {
         name: 'orlando',
         position: 'pm',
-        id: 2,
+        id: 3,
       };
       return request(server)
         .post('/users')
         .send(addedUsr)
         .expect(returnedUsr);
     });
+  });
+
+  describe('DELETE /users/:id', () => {
+    it('returns a status code of 400 when the id does not exist', () => {
+      return request(server)
+        .delete('/users/10')
+        .expect(400);
+    });
+    it('returns the correct id-missing message when the id does not exist', () => {
+        const expectedMsg = JSON.stringify('no user exists with this id');
+        return request(server)
+          .delete('/users/10')
+          .expect(expectedMsg);
+      });
+      it('returns a status code of 200 when a valid id is provided', () => {
+        return request(server)
+          .delete('/users/1')
+          .expect(200);
+      });
+      it('returns the deleted user when delete is successful', () => {
+        const deletedUser = {
+            id: 0,
+            name: 'Gabe',
+            position: 'instructor',
+        }
+        return request(server)
+          .delete('/users/0')
+          .expect(deletedUser);
+      });
   });
 });

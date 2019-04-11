@@ -4,6 +4,11 @@ const users = [
     name: 'Gabe',
     position: 'instructor',
   },
+  {
+    id: 1,
+    name: 'Samar',
+    position: 'pm',
+  },
 ];
 
 const get = () => {
@@ -21,8 +26,19 @@ const post = user => {
   }
 };
 
+const remove = id => {
+  const filtUsers = users.filter(user => user.id === id);
+  if (filtUsers.length === 1) {
+    const delUser = filtUsers[0];
+    return delUser;
+  } else {
+    return 'no user exists with this id';
+  }
+};
+
 module.exports = {
   users,
   get,
   post,
+  remove,
 };

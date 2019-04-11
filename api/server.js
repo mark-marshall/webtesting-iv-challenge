@@ -25,4 +25,14 @@ server.post('/users', (req, res) => {
   }
 });
 
+server.delete('/users/:id', (req, res) => {
+  const { id }  = req.params;
+  const deletedUserResponse = users.remove(parseInt(id));
+  if (deletedUserResponse.name) {
+    res.status(200).json(deletedUserResponse);
+  } else {
+    res.status(400).json(deletedUserResponse);
+  }
+});
+
 module.exports = server;
